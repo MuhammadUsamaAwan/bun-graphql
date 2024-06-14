@@ -20,13 +20,16 @@
     "generate:watch": "graphql-codegen --watch"
   },
   "dependencies": {
+    "@graphql-yoga/redis-event-target": "^3.0.0",
     "@t3-oss/env-core": "^0.10.1",
     "drizzle-orm": "^0.31.2",
     "graphql": "^16.8.2",
     "graphql-scalars": "^1.23.0",
     "graphql-yoga": "^5.3.1",
+    "ioredis": "^5.4.1",
     "jose": "^5.4.0",
     "pg": "^8.12.0",
+    "superjson": "^2.2.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {
