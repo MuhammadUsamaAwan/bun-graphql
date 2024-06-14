@@ -13,10 +13,12 @@ export function getLoader<Table extends PgTable>(table: Table, column: PgColumn)
 
   const loader = new DataLoader(
     async (ids: readonly string[]) => {
-      // @ts-expect-error not properly typed
-      const data = await db.select().from(table).where(inArray(column, ids));
+      const data = await db
+        .select()
+        .from(table)
+        .where(inArray(column, ids as string[]));
       const dataMap = new Map(data.map(item => [item[column.name], item]));
-      // @ts-expect-error not properly typed
+      // @ts-expect-error - This is a bug in the type definition
       return ids.map(id => dataMap.get(id));
     },
     { batchScheduleFn: callback => setTimeout(callback, 100) }
