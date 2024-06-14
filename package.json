@@ -5,7 +5,7 @@
   "scripts": {
     "start": "bun dist/index.js",
     "dev": "concurrently 'bun --watch src/index.ts' 'graphql-codegen --watch'",
-    "build": "bun build src/index.ts --outdir ./dist --minify",
+    "build": "bun build src/index.ts --outdir ./dist --target bun --minify",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format:write": "prettier --write \"**/*.{ts,tsx,js,cjs,mjs,json,md,mdx,html,css}\" --cache",
