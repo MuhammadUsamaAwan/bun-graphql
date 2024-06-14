@@ -1,13 +1,18 @@
 type User {
-  id: ID!
-  email: String!
-  createdAt: String!
-  updatedAt: String!
+  id: UUID!
+  email: NonEmptyString!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type UserToken {
+  token: NonEmptyString!
+  user: User!
 }
 
 input UserInput {
-  email: String!
-  password: String!
+  email: NonEmptyString!
+  password: NonEmptyString!
 }
 
 type Query {
@@ -15,6 +20,6 @@ type Query {
 }
 
 type Mutation {
-  signUp(input: UserInput!): User!
-  signIn(input: UserInput!): User!
+  signUp(input: UserInput!): UserToken!
+  signIn(input: UserInput!): UserToken!
 }

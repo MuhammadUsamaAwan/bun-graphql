@@ -5,7 +5,7 @@ const config = {
     project: true,
   },
   plugins: ['@typescript-eslint'],
-  extends: ['plugin:@typescript-eslint/recommended-type-checked', 'prettier'],
+  extends: ['plugin:@typescript-eslint/recommended', 'prettier'],
   rules: {
     'no-duplicate-imports': 'error',
     '@typescript-eslint/array-type': 'off',

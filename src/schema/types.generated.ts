@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLContext } from 'src/types/index';
 export type Maybe<T> = T | null | undefined;
 export type InputMaybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -20,8 +21,8 @@ export type Mutation = {
   __typename?: 'Mutation';
   createTodo: Todo;
   deleteTodo: Todo;
-  signIn: User;
-  signUp: User;
+  signIn: UserToken;
+  signUp: UserToken;
   updateTodo: Todo;
 };
 
@@ -84,6 +85,12 @@ export type User = {
 export type UserInput = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
+};
+
+export type UserToken = {
+  __typename?: 'UserToken';
+  token: Scalars['String']['output'];
+  user: User;
 };
 
 
@@ -166,6 +173,7 @@ export type ResolversTypes = {
   TodoInput: TodoInput;
   User: ResolverTypeWrapper<User>;
   UserInput: UserInput;
+  UserToken: ResolverTypeWrapper<UserToken>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -179,22 +187,23 @@ export type ResolversParentTypes = {
   TodoInput: TodoInput;
   User: User;
   UserInput: UserInput;
+  UserToken: UserToken;
 };
 
-export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+export type MutationResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationcreateTodoArgs, 'input'>>;
   deleteTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationdeleteTodoArgs, 'id'>>;
-  signIn?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationsignInArgs, 'input'>>;
-  signUp?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationsignUpArgs, 'input'>>;
+  signIn?: Resolver<ResolversTypes['UserToken'], ParentType, ContextType, RequireFields<MutationsignInArgs, 'input'>>;
+  signUp?: Resolver<ResolversTypes['UserToken'], ParentType, ContextType, RequireFields<MutationsignUpArgs, 'input'>>;
   updateTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationupdateTodoArgs, 'id' | 'input'>>;
 };
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+export type QueryResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   todos?: Resolver<Array<ResolversTypes['Todo']>, ParentType, ContextType>;
 };
 
-export type TodoResolvers<ContextType = any, ParentType extends ResolversParentTypes['Todo'] = ResolversParentTypes['Todo']> = {
+export type TodoResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Todo'] = ResolversParentTypes['Todo']> = {
   completed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -205,7 +214,7 @@ export type TodoResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+export type UserResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -213,10 +222,17 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type Resolvers<ContextType = any> = {
+export type UserTokenResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['UserToken'] = ResolversParentTypes['UserToken']> = {
+  token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resolvers<ContextType = GraphQLContext> = {
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Todo?: TodoResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  UserToken?: UserTokenResolvers<ContextType>;
 };
 

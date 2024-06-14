@@ -9,10 +9,12 @@ import    { signUp as Mutation_signUp } from './user/resolvers/Mutation/signUp';
 import    { updateTodo as Mutation_updateTodo } from './todo/resolvers/Mutation/updateTodo';
 import    { Todo } from './todo/resolvers/Todo';
 import    { User } from './user/resolvers/User';
+import    { UserToken } from './user/resolvers/UserToken';
     export const resolvers: Resolvers = {
       Query: { me: Query_me,todos: Query_todos },
       Mutation: { createTodo: Mutation_createTodo,deleteTodo: Mutation_deleteTodo,signIn: Mutation_signIn,signUp: Mutation_signUp,updateTodo: Mutation_updateTodo },
       
       Todo: Todo,
-User: User
+User: User,
+UserToken: UserToken
     }

@@ -9,10 +9,10 @@ export const users = pgTable(
       .default(sql`gen_random_uuid()`),
     email: text('email').notNull().unique(),
     password: text('password').notNull(),
-    createdAt: timestamp('created_at')
+    createdAt: timestamp('created_at', { mode: 'string' })
       .notNull()
       .default(sql`now()`),
-    updatedAt: timestamp('updated_at')
+    updatedAt: timestamp('updated_at', { mode: 'string' })
       .notNull()
       .default(sql`now()`),
     deletedAt: timestamp('deleted_at'),
@@ -31,11 +31,11 @@ export const todos = pgTable('todos', {
     .references(() => users.id),
   text: text('text').notNull(),
   completed: boolean('completed').notNull(),
-  createdAt: timestamp('created_at')
+  createdAt: timestamp('created_at', { mode: 'string' })
     .notNull()
     .default(sql`now()`),
-  updatedAt: timestamp('updated_at')
+  updatedAt: timestamp('updated_at', { mode: 'string' })
     .notNull()
     .default(sql`now()`),
-  deletedAt: timestamp('deleted_at'),
+  deletedAt: timestamp('deleted_at', { mode: 'string' }),
 });
