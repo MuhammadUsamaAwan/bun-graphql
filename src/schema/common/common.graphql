@@ -1,3 +1,9 @@
 scalar UUID
 scalar NonEmptyString
 scalar DateTime
+
+enum ACTION {
+  create
+  update
+  delete
+}

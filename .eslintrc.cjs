@@ -25,6 +25,7 @@ const config = {
       },
     ],
   },
+  ignorePatterns: ['dist/', 'node_modules/', '**/*.generated.ts'],
 };
 
 module.exports = config;

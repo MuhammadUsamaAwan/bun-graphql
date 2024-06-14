@@ -20,6 +20,11 @@ export type Scalars = {
   UUID: { input: string; output: string; }
 };
 
+export type ACTION =
+  | 'create'
+  | 'delete'
+  | 'update';
+
 export type Mutation = {
   __typename?: 'Mutation';
   createTodo: Todo;
@@ -61,6 +66,11 @@ export type Query = {
   todos: Array<Todo>;
 };
 
+export type Subscription = {
+  __typename?: 'Subscription';
+  todoSubscriptions: TodoSubscription;
+};
+
 export type Todo = {
   __typename?: 'Todo';
   completed: Scalars['Boolean']['output'];
@@ -75,6 +85,12 @@ export type Todo = {
 export type TodoInput = {
   completed?: InputMaybe<Scalars['Boolean']['input']>;
   text: Scalars['NonEmptyString']['input'];
+};
+
+export type TodoSubscription = {
+  __typename?: 'TodoSubscription';
+  action: ACTION;
+  data: Todo;
 };
 
 export type User = {
@@ -167,14 +183,17 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  ACTION: ACTION;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   NonEmptyString: ResolverTypeWrapper<Scalars['NonEmptyString']['output']>;
   Query: ResolverTypeWrapper<{}>;
+  Subscription: ResolverTypeWrapper<{}>;
   Todo: ResolverTypeWrapper<Todo>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   TodoInput: TodoInput;
+  TodoSubscription: ResolverTypeWrapper<TodoSubscription>;
   UUID: ResolverTypeWrapper<Scalars['UUID']['output']>;
   User: ResolverTypeWrapper<User>;
   UserInput: UserInput;
@@ -189,9 +208,11 @@ export type ResolversParentTypes = {
   ID: Scalars['ID']['output'];
   NonEmptyString: Scalars['NonEmptyString']['output'];
   Query: {};
+  Subscription: {};
   Todo: Todo;
   Boolean: Scalars['Boolean']['output'];
   TodoInput: TodoInput;
+  TodoSubscription: TodoSubscription;
   UUID: Scalars['UUID']['output'];
   User: User;
   UserInput: UserInput;
@@ -220,6 +241,10 @@ export type QueryResolvers<ContextType = GraphQLContext, ParentType extends Reso
   todos?: Resolver<Array<ResolversTypes['Todo']>, ParentType, ContextType>;
 };
 
+export type SubscriptionResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
+  todoSubscriptions?: SubscriptionResolver<ResolversTypes['TodoSubscription'], "todoSubscriptions", ParentType, ContextType>;
+};
+
 export type TodoResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Todo'] = ResolversParentTypes['Todo']> = {
   completed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
@@ -228,6 +253,12 @@ export type TodoResolvers<ContextType = GraphQLContext, ParentType extends Resol
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   userId?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TodoSubscriptionResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['TodoSubscription'] = ResolversParentTypes['TodoSubscription']> = {
+  action?: Resolver<ResolversTypes['ACTION'], ParentType, ContextType>;
+  data?: Resolver<ResolversTypes['Todo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -254,7 +285,9 @@ export type Resolvers<ContextType = GraphQLContext> = {
   Mutation?: MutationResolvers<ContextType>;
   NonEmptyString?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
+  Subscription?: SubscriptionResolvers<ContextType>;
   Todo?: TodoResolvers<ContextType>;
+  TodoSubscription?: TodoSubscriptionResolvers<ContextType>;
   UUID?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;
   UserToken?: UserTokenResolvers<ContextType>;

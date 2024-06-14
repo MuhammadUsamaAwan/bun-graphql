@@ -1,6 +1,8 @@
+import { pubSub } from '~/lib/pubsub';
 import { getUser } from '~/utils';
 import { and, eq } from 'drizzle-orm';
 
+import { ACTION, SUBSCRIPTION_TOPICS } from '~/config/constants';
 import { db } from '~/db';
 import { todosSchema } from '~/db/schema';
 
@@ -13,6 +15,11 @@ export const deleteTodo: NonNullable<MutationResolvers['deleteTodo']> = async (_
     .delete(todosSchema)
     .where(and(eq(todosSchema.id, _arg.id), eq(todosSchema.userId, user.sub)))
     .returning();
+
+  pubSub.publish(SUBSCRIPTION_TOPICS.TODO, {
+    action: ACTION.DELETE,
+    data: todo,
+  });
 
   return todo;
 };

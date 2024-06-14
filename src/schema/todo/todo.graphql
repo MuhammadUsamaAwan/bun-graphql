@@ -8,6 +8,11 @@ type Todo {
   user: User
 }
 
+type TodoSubscription {
+  action: ACTION!
+  data: Todo!
+}
+
 input TodoInput {
   text: NonEmptyString!
   completed: Boolean
@@ -21,4 +26,8 @@ type Mutation {
   createTodo(input: TodoInput!): Todo!
   updateTodo(id: ID!, input: TodoInput!): Todo!
   deleteTodo(id: ID!): Todo!
+}
+
+type Subscription {
+  todoSubscriptions: TodoSubscription!
 }
