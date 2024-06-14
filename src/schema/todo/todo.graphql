@@ -1,15 +1,15 @@
 type Todo {
-  id: ID!
-  userId: ID!
-  text: String!
+  id: UUID!
+  userId: UUID!
+  text: NonEmptyString!
   completed: Boolean!
-  createdAt: String!
-  updatedAt: String!
-  user: User!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: User
 }
 
 input TodoInput {
-  text: String!
+  text: NonEmptyString!
   completed: Boolean
 }
 

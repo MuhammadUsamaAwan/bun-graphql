@@ -10,11 +10,15 @@ import    { updateTodo as Mutation_updateTodo } from './todo/resolvers/Mutation/
 import    { Todo } from './todo/resolvers/Todo';
 import    { User } from './user/resolvers/User';
 import    { UserToken } from './user/resolvers/UserToken';
+import    { DateTimeResolver,NonEmptyStringResolver,UUIDResolver } from 'graphql-scalars';
     export const resolvers: Resolvers = {
       Query: { me: Query_me,todos: Query_todos },
       Mutation: { createTodo: Mutation_createTodo,deleteTodo: Mutation_deleteTodo,signIn: Mutation_signIn,signUp: Mutation_signUp,updateTodo: Mutation_updateTodo },
       
       Todo: Todo,
 User: User,
-UserToken: UserToken
+UserToken: UserToken,
+DateTime: DateTimeResolver,
+NonEmptyString: NonEmptyStringResolver,
+UUID: UUIDResolver
     }

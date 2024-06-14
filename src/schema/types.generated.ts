@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { GraphQLContext } from 'src/types/index';
 export type Maybe<T> = T | null | undefined;
 export type InputMaybe<T> = T | null | undefined;
@@ -15,6 +15,9 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  DateTime: { input: Date | string; output: Date | string; }
+  NonEmptyString: { input: string; output: string; }
+  UUID: { input: string; output: string; }
 };
 
 export type Mutation = {
@@ -61,35 +64,35 @@ export type Query = {
 export type Todo = {
   __typename?: 'Todo';
   completed: Scalars['Boolean']['output'];
-  createdAt: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  text: Scalars['String']['output'];
-  updatedAt: Scalars['String']['output'];
-  user: User;
-  userId: Scalars['ID']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['UUID']['output'];
+  text: Scalars['NonEmptyString']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+  user?: Maybe<User>;
+  userId: Scalars['UUID']['output'];
 };
 
 export type TodoInput = {
   completed?: InputMaybe<Scalars['Boolean']['input']>;
-  text: Scalars['String']['input'];
+  text: Scalars['NonEmptyString']['input'];
 };
 
 export type User = {
   __typename?: 'User';
-  createdAt: Scalars['String']['output'];
-  email: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  updatedAt: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  email: Scalars['NonEmptyString']['output'];
+  id: Scalars['UUID']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type UserInput = {
-  email: Scalars['String']['input'];
-  password: Scalars['String']['input'];
+  email: Scalars['NonEmptyString']['input'];
+  password: Scalars['NonEmptyString']['input'];
 };
 
 export type UserToken = {
   __typename?: 'UserToken';
-  token: Scalars['String']['output'];
+  token: Scalars['NonEmptyString']['output'];
   user: User;
 };
 
@@ -164,31 +167,41 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  NonEmptyString: ResolverTypeWrapper<Scalars['NonEmptyString']['output']>;
   Query: ResolverTypeWrapper<{}>;
   Todo: ResolverTypeWrapper<Todo>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
-  String: ResolverTypeWrapper<Scalars['String']['output']>;
   TodoInput: TodoInput;
+  UUID: ResolverTypeWrapper<Scalars['UUID']['output']>;
   User: ResolverTypeWrapper<User>;
   UserInput: UserInput;
   UserToken: ResolverTypeWrapper<UserToken>;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  DateTime: Scalars['DateTime']['output'];
   Mutation: {};
   ID: Scalars['ID']['output'];
+  NonEmptyString: Scalars['NonEmptyString']['output'];
   Query: {};
   Todo: Todo;
   Boolean: Scalars['Boolean']['output'];
-  String: Scalars['String']['output'];
   TodoInput: TodoInput;
+  UUID: Scalars['UUID']['output'];
   User: User;
   UserInput: UserInput;
   UserToken: UserToken;
+  String: Scalars['String']['output'];
 };
+
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime';
+}
 
 export type MutationResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationcreateTodoArgs, 'input'>>;
@@ -198,6 +211,10 @@ export type MutationResolvers<ContextType = GraphQLContext, ParentType extends R
   updateTodo?: Resolver<ResolversTypes['Todo'], ParentType, ContextType, RequireFields<MutationupdateTodoArgs, 'id' | 'input'>>;
 };
 
+export interface NonEmptyStringScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['NonEmptyString'], any> {
+  name: 'NonEmptyString';
+}
+
 export type QueryResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   todos?: Resolver<Array<ResolversTypes['Todo']>, ParentType, ContextType>;
@@ -205,33 +222,40 @@ export type QueryResolvers<ContextType = GraphQLContext, ParentType extends Reso
 
 export type TodoResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['Todo'] = ResolversParentTypes['Todo']> = {
   completed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>;
+  text?: Resolver<ResolversTypes['NonEmptyString'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  userId?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export interface UUIDScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['UUID'], any> {
+  name: 'UUID';
+}
+
 export type UserResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  updatedAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['NonEmptyString'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['UUID'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type UserTokenResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['UserToken'] = ResolversParentTypes['UserToken']> = {
-  token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  token?: Resolver<ResolversTypes['NonEmptyString'], ParentType, ContextType>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = GraphQLContext> = {
+  DateTime?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
+  NonEmptyString?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
   Todo?: TodoResolvers<ContextType>;
+  UUID?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;
   UserToken?: UserTokenResolvers<ContextType>;
 };
