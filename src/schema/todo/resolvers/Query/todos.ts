@@ -9,6 +9,5 @@ export const todos: NonNullable<QueryResolvers['todos']> = async (_parent, _arg,
   if (!_ctx.user?.sub) {
     return [];
   }
-  const res = await db.select().from(todosSchema).where(eq(todosSchema.userId, _ctx.user?.sub));
-  return res;
+  return db.select().from(todosSchema).where(eq(todosSchema.userId, _ctx.user?.sub));
 };

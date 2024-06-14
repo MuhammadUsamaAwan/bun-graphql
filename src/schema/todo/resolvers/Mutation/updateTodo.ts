@@ -1,10 +1,10 @@
-import { pubSub } from '~/lib/pubsub';
 import { getUser } from '~/utils';
 import { and, eq } from 'drizzle-orm';
 
 import { db } from '~/db';
 import { todosSchema } from '~/db/schema';
 
+import { todoQueue } from '../TodoJobs';
 import type { MutationResolvers } from './../../../types.generated';
 
 export const updateTodo: NonNullable<MutationResolvers['updateTodo']> = async (_parent, _arg, _ctx) => {
@@ -19,10 +19,7 @@ export const updateTodo: NonNullable<MutationResolvers['updateTodo']> = async (_
     .where(and(eq(todosSchema.id, _arg.id), eq(todosSchema.userId, user.sub)))
     .returning();
 
-  pubSub.publish('todo', {
-    action: 'update',
-    data: todo,
-  });
+  await todoQueue.add('delete', todo);
 
   return todo;
 };
