@@ -7,7 +7,7 @@ import type { JWTPayload } from '~/types';
 
 export function signJWT(payload: JWTPayload) {
   return new SignJWT()
-    .setProtectedHeader({ alg: env.JWT_ALGORITHM })
+    .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setSubject(payload.sub)
     .setIssuer(env.JWT_ISSUER)
