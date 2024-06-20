@@ -6,11 +6,9 @@ import { env } from '~/config/env';
 import type { JWTPayload } from '~/types';
 
 export function signJWT(payload: JWTPayload) {
-  return new SignJWT()
+  return new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
-    .setSubject(payload.sub)
-    .setIssuer(env.JWT_ISSUER)
     .setExpirationTime(env.JWT_EXPIRES_IN)
     .sign(new TextEncoder().encode(env.JWT_SECRET));
 }

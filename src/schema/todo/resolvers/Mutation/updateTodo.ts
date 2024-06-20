@@ -16,7 +16,7 @@ export const updateTodo: NonNullable<MutationResolvers['updateTodo']> = async (_
       text: _arg.input.text,
       completed: _arg.input.completed ?? undefined,
     })
-    .where(and(eq(todosSchema.id, _arg.id), eq(todosSchema.userId, user.sub)))
+    .where(and(eq(todosSchema.id, _arg.id), eq(todosSchema.userId, user.id)))
     .returning();
 
   pubSub.publish('todo', {

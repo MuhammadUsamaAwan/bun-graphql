@@ -23,7 +23,7 @@ export const signUp: NonNullable<MutationResolvers['signUp']> = async (_parent, 
     })
     .returning();
 
-  const token = await signJWT({ sub: newUser.id });
+  const token = await signJWT({ id: newUser.id });
 
   return { token, user: newUser };
 };

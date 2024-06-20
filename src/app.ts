@@ -18,7 +18,7 @@ export const yoga = createYoga({
   plugins: [
     useResponseCache({
       cache,
-      session: request => request.headers.get('authentication'),
+      session: request => request.headers.get('authorization'),
     }),
   ],
 });

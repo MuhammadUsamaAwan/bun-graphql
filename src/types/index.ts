@@ -1,3 +1,3 @@
 export type JWTPayload = {
-  sub: string;
+  id: string;
 };

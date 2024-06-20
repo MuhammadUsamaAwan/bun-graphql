@@ -13,7 +13,7 @@ export const createTodo: NonNullable<MutationResolvers['createTodo']> = async (_
     .values({
       text: _arg.input.text,
       completed: _arg.input.completed ?? false,
-      userId: user.sub,
+      userId: user.id,
     })
     .returning();
 

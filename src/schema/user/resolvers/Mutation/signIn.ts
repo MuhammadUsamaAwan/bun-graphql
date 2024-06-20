@@ -19,7 +19,7 @@ export const signIn: NonNullable<MutationResolvers['signIn']> = async (_parent, 
     throw new Error('Email or password is incorrect');
   }
 
-  const token = await signJWT({ sub: user.id });
+  const token = await signJWT({ id: user.id });
 
   return { token, user };
 };

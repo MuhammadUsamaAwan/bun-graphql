@@ -10,7 +10,7 @@ export const todoSubscriptions: NonNullable<SubscriptionResolvers['todoSubscript
     const user = await getUserOrThrow(_ctx);
     return pipe(
       pubSub.subscribe('todo'),
-      filter(payload => user.sub === payload.data.userId)
+      filter(payload => user.id === payload.data.userId)
     );
   },
   resolve: (payload: TodoSubscription) => {

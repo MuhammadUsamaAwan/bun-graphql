@@ -12,7 +12,7 @@ export const deleteTodo: NonNullable<MutationResolvers['deleteTodo']> = async (_
 
   const [todo] = await db
     .delete(todosSchema)
-    .where(and(eq(todosSchema.id, _arg.id), eq(todosSchema.userId, user.sub)))
+    .where(and(eq(todosSchema.id, _arg.id), eq(todosSchema.userId, user.id)))
     .returning();
 
   pubSub.publish('todo', {
