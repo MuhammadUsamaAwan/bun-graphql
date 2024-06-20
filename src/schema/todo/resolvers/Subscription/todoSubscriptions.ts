@@ -1,5 +1,6 @@
 import { filter, pipe } from 'graphql-yoga';
 
+import { TOPICS } from '~/config/constants';
 import { getUserOrThrow } from '~/lib/auth';
 import { pubSub } from '~/lib/pubsub';
 
@@ -9,7 +10,7 @@ export const todoSubscriptions: NonNullable<SubscriptionResolvers['todoSubscript
   subscribe: async (_parent, _arg, _ctx) => {
     const user = await getUserOrThrow(_ctx);
     return pipe(
-      pubSub.subscribe('todo'),
+      pubSub.subscribe(TOPICS.TODO),
       filter(payload => user.sub === payload.data.userId)
     );
   },

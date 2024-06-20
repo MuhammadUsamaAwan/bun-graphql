@@ -12,7 +12,7 @@ export const todoQueue = new Queue<TodoSubscription['data'], void, TodoSubscript
 export const todoWorker = new Worker<TodoSubscription['data'], void, TodoSubscription['action']>(
   TOPICS.TODO,
   async job => {
-    pubSub.publish('todo', {
+    pubSub.publish(TOPICS.TODO, {
       action: job.name,
       data: job.data,
     });
