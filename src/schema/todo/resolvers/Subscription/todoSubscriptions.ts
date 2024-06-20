@@ -2,7 +2,7 @@ import { filter, pipe } from 'graphql-yoga';
 
 import { TOPICS } from '~/config/constants';
 import { getUserOrThrow } from '~/lib/auth';
-import { pubSub } from '~/lib/pubsub';
+import { pubSub } from '~/lib/pubSub';
 
 import type { SubscriptionResolvers, TodoSubscription } from './../../../types.generated';
 

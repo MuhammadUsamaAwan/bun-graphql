@@ -1,8 +1,9 @@
+import { TOPICS } from '~/config/constants';
 import { db } from '~/db';
 import { todosSchema } from '~/db/schema';
 import { getUserOrThrow } from '~/lib/auth';
+import { pubSub } from '~/lib/pubSub';
 
-import { todoQueue } from '../TodoJobs';
 import type { MutationResolvers } from './../../../types.generated';
 
 export const createTodo: NonNullable<MutationResolvers['createTodo']> = async (_parent, _arg, _ctx) => {
@@ -17,7 +18,10 @@ export const createTodo: NonNullable<MutationResolvers['createTodo']> = async (_
     })
     .returning();
 
-  await todoQueue.add('create', todo);
+  pubSub.publish(TOPICS.TODO, {
+    action: 'create',
+    data: todo,
+  });
 
   return todo;
 };
