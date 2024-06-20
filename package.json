@@ -20,6 +20,8 @@
     "generate:watch": "graphql-codegen --watch"
   },
   "dependencies": {
+    "@envelop/response-cache-redis": "^4.1.2",
+    "@graphql-yoga/plugin-response-cache": "^3.6.0",
     "@graphql-yoga/redis-event-target": "^3.0.0",
     "@t3-oss/env-core": "^0.10.1",
     "dataloader": "^2.2.2",
