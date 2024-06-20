@@ -1,6 +1,5 @@
 import { and, eq } from 'drizzle-orm';
 
-import { TOPICS } from '~/config/constants';
 import { db } from '~/db';
 import { todosSchema } from '~/db/schema';
 import { getUserOrThrow } from '~/lib/auth';
@@ -20,7 +19,7 @@ export const updateTodo: NonNullable<MutationResolvers['updateTodo']> = async (_
     .where(and(eq(todosSchema.id, _arg.id), eq(todosSchema.userId, user.sub)))
     .returning();
 
-  pubSub.publish(TOPICS.TODO, {
+  pubSub.publish('todo', {
     action: 'update',
     data: todo,
   });

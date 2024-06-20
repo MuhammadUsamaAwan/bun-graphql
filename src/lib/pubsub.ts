@@ -3,7 +3,6 @@ import { createPubSub } from 'graphql-yoga';
 import { Redis } from 'ioredis';
 import superjson from 'superjson';
 
-import type { TOPICS } from '~/config/constants';
 import type { TodoSubscription } from '~/schema/types.generated';
 
 const publishClient = new Redis({
@@ -20,5 +19,5 @@ const eventTarget = createRedisEventTarget({
 });
 
 export const pubSub = createPubSub<{
-  [TOPICS.TODO]: [TodoSubscription];
+  todo: [TodoSubscription];
 }>({ eventTarget });

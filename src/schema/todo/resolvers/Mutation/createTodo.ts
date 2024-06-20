@@ -1,4 +1,3 @@
-import { TOPICS } from '~/config/constants';
 import { db } from '~/db';
 import { todosSchema } from '~/db/schema';
 import { getUserOrThrow } from '~/lib/auth';
@@ -18,7 +17,7 @@ export const createTodo: NonNullable<MutationResolvers['createTodo']> = async (_
     })
     .returning();
 
-  pubSub.publish(TOPICS.TODO, {
+  pubSub.publish('todo', {
     action: 'create',
     data: todo,
   });
