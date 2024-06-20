@@ -18,7 +18,7 @@ export function getLoader<Table extends PgTable>(table: Table, column: PgColumn)
         .from(table)
         .where(inArray(column, ids as string[]));
       const dataMap = new Map(data.map(item => [item[column.name], item]));
-      // @ts-expect-error - This is a bug in the type definition
+      // @ts-expect-error - not properly typed
       return ids.map(id => dataMap.get(id));
     },
     { batchScheduleFn: callback => setTimeout(callback, 100) }

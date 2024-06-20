@@ -1,17 +1,17 @@
 type User {
   id: UUID!
-  email: NonEmptyString!
+  email: EmailAddress!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
 
 type UserToken {
-  token: NonEmptyString!
+  token: JWT!
   user: User!
 }
 
 input UserInput {
-  email: NonEmptyString!
+  email: EmailAddress!
   password: NonEmptyString!
 }
 

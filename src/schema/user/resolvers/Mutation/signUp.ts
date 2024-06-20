@@ -1,8 +1,8 @@
-import { signJWT } from '~/utils';
 import { eq } from 'drizzle-orm';
 
 import { db } from '~/db';
 import { usersSchema } from '~/db/schema';
+import { signJWT } from '~/lib/auth';
 
 import type { MutationResolvers } from './../../../types.generated';
 

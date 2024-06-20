@@ -1,6 +1,8 @@
 scalar UUID
 scalar NonEmptyString
 scalar DateTime
+scalar EmailAddress
+scalar JWT
 
 enum ACTION {
   create

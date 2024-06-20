@@ -12,7 +12,7 @@ import    { Todo } from './todo/resolvers/Todo';
 import    { TodoSubscription } from './todo/resolvers/TodoSubscription';
 import    { User } from './user/resolvers/User';
 import    { UserToken } from './user/resolvers/UserToken';
-import    { DateTimeResolver,NonEmptyStringResolver,UUIDResolver } from 'graphql-scalars';
+import    { DateTimeResolver,EmailAddressResolver,JWTResolver,NonEmptyStringResolver,UUIDResolver } from 'graphql-scalars';
     export const resolvers: Resolvers = {
       Query: { me: Query_me,todos: Query_todos },
       Mutation: { createTodo: Mutation_createTodo,deleteTodo: Mutation_deleteTodo,signIn: Mutation_signIn,signUp: Mutation_signUp,updateTodo: Mutation_updateTodo },
@@ -22,6 +22,8 @@ TodoSubscription: TodoSubscription,
 User: User,
 UserToken: UserToken,
 DateTime: DateTimeResolver,
+EmailAddress: EmailAddressResolver,
+JWT: JWTResolver,
 NonEmptyString: NonEmptyStringResolver,
 UUID: UUIDResolver
     }
