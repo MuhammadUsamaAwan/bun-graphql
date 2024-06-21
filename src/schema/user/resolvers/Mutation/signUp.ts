@@ -1,4 +1,5 @@
 import { eq } from 'drizzle-orm';
+import { GraphQLError } from 'graphql';
 
 import { db } from '~/db';
 import { usersSchema } from '~/db/schema';
@@ -10,7 +11,13 @@ export const signUp: NonNullable<MutationResolvers['signUp']> = async (_parent, 
   const [user] = await db.select().from(usersSchema).where(eq(usersSchema.email, _arg.input.email));
 
   if (user) {
-    throw new Error('User already exists');
+    throw new GraphQLError('User already exists', {
+      extensions: {
+        http: {
+          status: 400,
+        },
+      },
+    });
   }
 
   const hash = await Bun.password.hash(_arg.input.password);

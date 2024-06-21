@@ -7,7 +7,7 @@ import    { deleteTodo as Mutation_deleteTodo } from './todo/resolvers/Mutation/
 import    { signIn as Mutation_signIn } from './user/resolvers/Mutation/signIn';
 import    { signUp as Mutation_signUp } from './user/resolvers/Mutation/signUp';
 import    { updateTodo as Mutation_updateTodo } from './todo/resolvers/Mutation/updateTodo';
-import    { todoSubscriptions as Subscription_todoSubscriptions } from './todo/resolvers/Subscription/todoSubscriptions';
+import    { todoSubscription as Subscription_todoSubscription } from './todo/resolvers/Subscription/todoSubscription';
 import    { Todo } from './todo/resolvers/Todo';
 import    { TodoSubscription } from './todo/resolvers/TodoSubscription';
 import    { User } from './user/resolvers/User';
@@ -16,7 +16,7 @@ import    { DateTimeResolver,EmailAddressResolver,JWTResolver,NonEmptyStringReso
     export const resolvers: Resolvers = {
       Query: { me: Query_me,todos: Query_todos },
       Mutation: { createTodo: Mutation_createTodo,deleteTodo: Mutation_deleteTodo,signIn: Mutation_signIn,signUp: Mutation_signUp,updateTodo: Mutation_updateTodo },
-      Subscription: { todoSubscriptions: Subscription_todoSubscriptions },
+      Subscription: { todoSubscription: Subscription_todoSubscription },
       Todo: Todo,
 TodoSubscription: TodoSubscription,
 User: User,

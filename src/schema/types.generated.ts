@@ -69,7 +69,7 @@ export type Query = {
 
 export type Subscription = {
   __typename?: 'Subscription';
-  todoSubscriptions: TodoSubscription;
+  todoSubscription: TodoSubscription;
 };
 
 export type Todo = {
@@ -255,7 +255,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
-  todoSubscriptions?: SubscriptionResolver<ResolversTypes['TodoSubscription'], "todoSubscriptions", ParentType, ContextType>;
+  todoSubscription?: SubscriptionResolver<ResolversTypes['TodoSubscription'], "todoSubscription", ParentType, ContextType>;
 };
 
 export type TodoResolvers<ContextType = any, ParentType extends ResolversParentTypes['Todo'] = ResolversParentTypes['Todo']> = {

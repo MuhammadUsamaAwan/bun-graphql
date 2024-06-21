@@ -5,7 +5,7 @@ import { pubSub } from '~/lib/pubSub';
 
 import type { SubscriptionResolvers, TodoSubscription } from './../../../types.generated';
 
-export const todoSubscriptions: NonNullable<SubscriptionResolvers['todoSubscriptions']> = {
+export const todoSubscription: NonNullable<SubscriptionResolvers['todoSubscription']> = {
   subscribe: async (_parent, _arg, _ctx) => {
     const user = await getUserOrThrow(_ctx);
     return pipe(
